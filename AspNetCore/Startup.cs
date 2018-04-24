@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace AspNetCore
 {
+    //Ponto incial
     public class Startup
     {
         public Startup(IConfiguration configuration)
