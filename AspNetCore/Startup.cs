@@ -1,9 +1,10 @@
-﻿using AspNetCore.Services;
+﻿using AspNetCore.DBCoontext;
+using AspNetCore.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System.Linq;
 
 namespace AspNetCore
 {
@@ -25,6 +26,9 @@ namespace AspNetCore
             
             // Adciona singleton do UsuarioService no Startup.cs
             services.AddSingleton<IUsuarioService, UsuarioService>();
+
+            //Adcionar a connectionstring como um serviço ao projeto e referenciar o LibraryContext
+            services.AddDbContext<LibraryContext>(options => options.UseSqlServer(Configuration.GetConnectionString("LibraryConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

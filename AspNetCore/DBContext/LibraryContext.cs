@@ -1,7 +1,7 @@
 ﻿using AspNetCore.Classes;
 using Microsoft.EntityFrameworkCore;
 
-namespace LibraryData
+namespace AspNetCore.DBCoontext
 {
     public class LibraryContext : DbContext
     {

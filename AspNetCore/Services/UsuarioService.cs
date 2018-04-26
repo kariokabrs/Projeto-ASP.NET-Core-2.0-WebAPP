@@ -1,9 +1,8 @@
-﻿using AspNetCore.Classes;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AspNetCore.Models;
-
+using AspNetCore.Classes;
 
 namespace AspNetCore.Services
 {
