@@ -28,7 +28,7 @@ namespace AspNetCore.Controllers
                 return View("Dados não encontrados");
             }
 
-            return View("Views/Usuario/Usuario.cshtml",model);
+            return View("Views/Usuario/ReadUsuario.cshtml",model);
 
         }
     }
