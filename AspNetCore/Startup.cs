@@ -42,16 +42,37 @@ namespace AspNetCore
 
             app.UseStaticFiles();
 
-            // incluída a rota do arquivo usuario o controller Usuarios com o Index. 
+            //Aqui faz a View do Controle Usuarios ser carregada primeira, pois as rotas definidas vão na ordem abaixo
             app.UseMvc(routes =>
             {
+                // New route Usuarios ATENCAO: Se colocar o nome do template em letra MAIUSCULA o sistema fica instável (bug)
                 routes.MapRoute(
                    name: "usuario",
                    template: "{controller=Usuarios}/{action=Index}/{id?}");
+                // Default Route
                 routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                   name: "default",
+                   template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            /// Aqui faz a página Home ser a primeira a carregar. 
+            //app.UseMvc(routes =>
+            //{
+            //    // New route Usuarios ATENCAO: Se colocar o nome do template em letra MAIUSCULA o sistema fica instável (bug)
+            //    routes.MapRoute(
+            //      name: "usuario-route",
+            //      template: "usuario",
+            //      defaults: new { controller = "Usuarios", action = "Index" });
+            //    // New Route About
+            //    routes.MapRoute(
+            //       name: "about-route",
+            //       template: "about",
+            //       defaults: new { controller = "Home", action = "About" });
+            //    // Default Route
+            //    routes.MapRoute(
+            //       name: "default",
+            //       template: "{controller=Home}/{action=Index}/{id?}");
+            //});
         }
     }
 }
