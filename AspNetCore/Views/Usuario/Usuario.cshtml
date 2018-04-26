@@ -16,13 +16,13 @@
         </thead>
         @foreach (var item in Model.Items)
         {
-            <tr>
-                <td>
-                    <input type="checkbox" name="@item.Id" value="true" class="done-checkbox">
-                </td>
-                <td>@item.Nome</td>
-                <td>@item.DiaCadastro</td>
-            </tr>}
+        <tr>
+            <td>																
+            <input type="checkbox" name="@item.Id" value="true" class="done-checkbox">														
+            </td>
+            <td>@item.Nome</td>
+            <td>@item.DiaCadastro</td>
+        </tr>}
     </table>
     <div class="panel-footer	add-item-form">
         <form>
