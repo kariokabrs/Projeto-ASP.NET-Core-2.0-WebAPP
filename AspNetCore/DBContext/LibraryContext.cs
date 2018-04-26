@@ -1,4 +1,5 @@
 ﻿using AspNetCore.Classes;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace AspNetCore.DBCoontext
@@ -15,6 +16,14 @@ namespace AspNetCore.DBCoontext
 
         }
 
-        DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<Usuario> Usuarios { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            //	Customize	the	ASP.NET	Identity	model	and	override	the	d efaults	if	needed.								
+            //	For	example,	you	can	rename	the	ASP.NET	Identity	table	names	and	more.								
+            //	Add	your	customizations	after	calling	base.OnModelCreat ing(builder);				
+        }
     }
 }

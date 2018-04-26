@@ -22,13 +22,18 @@ namespace AspNetCore
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
-            
-            // Adciona singleton do UsuarioService no Startup.cs
-            services.AddSingleton<IUsuarioService, UsuarioService>();
-
+           
             //Adcionar a connectionstring como um serviço ao projeto e referenciar o LibraryContext
             services.AddDbContext<LibraryContext>(options => options.UseSqlServer(Configuration.GetConnectionString("LibraryConnection")));
+            
+            //Adcionar o Singleton no UsuarioService com EF core. 
+            services.AddScoped<IUsuarioService, UsuarioService>();
+            
+            // Adciona singleton do UsuarioService no Startup.cs
+            //services.AddSingleton<IUsuarioService, UsuarioService>();
+            
+            services.AddMvc();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
