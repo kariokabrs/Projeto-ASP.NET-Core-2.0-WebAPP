@@ -12,12 +12,12 @@ namespace AspNetCore.Classes
         public Guid Id { get; set; }
         public bool Feito { get; set ; }
 
-        //[Required]
-        //[MinLength(2), MaxLength(80)]
+        [Required]
+        [MinLength(2), MaxLength(80)]
         public string Nome { get; set; }
 
-        //[Display(Name = "Dia do Cadastro")]
-        //[DataType(DataType.DateTime)]
+        [Display(Name = "Dia do Cadastro")]
+        [DataType(DataType.DateTime)]
         public DateTimeOffset? DiaCadastro { get; set; }
     }
 }
