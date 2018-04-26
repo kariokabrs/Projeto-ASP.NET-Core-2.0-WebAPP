@@ -22,10 +22,7 @@ namespace AspNetCore
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddMvc().AddViewLocalization().AddDataAnnotationsLocalization().AddRazorOptions(options =>
-            {
-                options.ViewLocationExpanders.Remove(options.ViewLocationExpanders.First(f => f is Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageViewLocationExpander));
-            });
+            
             // Adciona singleton do UsuarioService no Startup.cs
             services.AddSingleton<IUsuarioService, UsuarioService>();
         }
@@ -45,12 +42,11 @@ namespace AspNetCore
 
             app.UseStaticFiles();
 
-
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
-                name: "default",
-                template: "{controller=Home}/{action=Index}/{id?}");
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }
