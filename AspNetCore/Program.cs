@@ -16,17 +16,17 @@ namespace AspNetCore
         {
 
             // Este principal quando criado do zero a aplicação desativei e coloquei o abaixo.
-            BuildWebHost(args).Run();
+            //BuildWebHost(args).Run();
 
-            //var host = new WebHostBuilder()
-            //    .UseKestrel()
-            //    .UseContentRoot(Directory.GetCurrentDirectory())
-            //    .UseWebRoot("wwwroot") // use "." to completely remove the wwwroot
-            //    .UseIISIntegration()
-            //    .UseStartup<Startup>()
-            //    .Build();
+            var host = new WebHostBuilder()
+                .UseKestrel()
+                .UseContentRoot(Directory.GetCurrentDirectory())
+                .UseWebRoot("wwwroot") // use "." to completely remove the wwwroot
+                .UseIISIntegration()
+                .UseStartup<Startup>()
+                .Build();
 
-            //host.Run();
+            host.Run();
 
         }
 

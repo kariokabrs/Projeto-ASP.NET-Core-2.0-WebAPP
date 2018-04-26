@@ -42,8 +42,12 @@ namespace AspNetCore
 
             app.UseStaticFiles();
 
+            // incluída a rota do arquivo usuario o controller Usuarios com o Index. 
             app.UseMvc(routes =>
             {
+                routes.MapRoute(
+                   name: "usuario",
+                   template: "{controller=Usuarios}/{action=Index}/{id?}");
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");

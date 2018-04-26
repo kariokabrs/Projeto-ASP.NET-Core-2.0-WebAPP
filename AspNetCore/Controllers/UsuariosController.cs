@@ -17,7 +17,7 @@ namespace AspNetCore.Controllers
             _Iusuario = Iusuario;
         }
 
-        public async Task<IActionResult> IndexAsync()
+        public async Task<IActionResult> Index()
         {
 
             var usuarios = await _Iusuario.GetUsuariosAsync();
@@ -25,7 +25,6 @@ namespace AspNetCore.Controllers
 
             if (usuarios == null)
             {
-                Response.StatusCode = 200;
                 return View("Dados não encontrados");
             }
 

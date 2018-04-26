@@ -1,5 +1,36 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model UsuarioViewModel
+@using Humanizer
+
 @{
+    ViewData["Title"] = "Usuarios";
 }
+
+<div class="panel panel-default	todo-panel">
+    <div class="panel-heading">@ViewData["Title"]</div>
+    <table class="table	table-hover">
+        <thead>
+            <tr>
+                <td>&#x2714;</td>
+                <td>Nome</td>
+                <td>Dia Cadastrado</td>
+            </tr>
+        </thead>
+        @foreach (var item in Model.Items)
+        {
+            <tr>
+                <td>
+                    <input type="checkbox" name="@item.Id" value="true" class="done-checkbox">
+                </td>
+                <td>@item.Nome</td>
+                <td>@item.DiaCadastro.Humanize()</td>
+            </tr>}
+    </table>
+    <div class="panel-footer add-item-form">
+        <form>
+            <div id="add-item-error" class="text-danger"></div>
+            <label for="add-item-title">Add	a	new	item:</label>
+            <input id="add-item-title">
+            <button type="button" id="add-item-button">Add</button>
+        </form>
+    </div>
+</div>
