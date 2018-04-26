@@ -17,7 +17,7 @@ namespace AspNetCore.Controllers
             _Iusuario = Iusuario;
         }
 
-        public async Task<IActionResult> IndexAsync()
+        public async Task<IActionResult> Index()
         {
 
             var usuarios = await _Iusuario.GetUsuariosAsync();
@@ -29,7 +29,7 @@ namespace AspNetCore.Controllers
                 return View("Dados não encontrados");
             }
 
-            return View("Views/Usuario/Usuario.cshtml",model);
+            return View("Views/Usuario/Usuario.cshtml");
 
         }
     }

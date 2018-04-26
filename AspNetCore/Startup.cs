@@ -10,8 +10,7 @@ namespace AspNetCore
     //Ponto incial
     public class Startup
     {
-        // private const string Template = "{controller=Home}/{action=Index}/{id?}";
-
+     
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
