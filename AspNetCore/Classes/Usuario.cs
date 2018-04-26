@@ -12,7 +12,10 @@ namespace AspNetCore.Classes
 
         public int Id { get; set; }
         public bool Feito { get; set ; }
+        [Required]
+        [MaxLength(80)]
         public string Nome { get; set; }
+        [Required]     
         public DateTimeOffset? DiaCadastro { get; set; }
     }
 }
