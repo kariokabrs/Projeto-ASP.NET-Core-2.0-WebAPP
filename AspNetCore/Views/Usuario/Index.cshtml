@@ -6,7 +6,9 @@
 }
 
 <div class="panel panel-default	todo-panel">
-    <div class="panel-heading">@ViewData["Title"]</div>
+    <div class="panel-heading">
+        @ViewData["Title"]
+    </div>
     <table class="table	table-hover">
         <thead>
             <tr>
@@ -23,19 +25,11 @@
                 </td>
                 <td>@item.Nome</td>
                 <td>@item.DiaCadastro.Humanize()</td>
-            </tr>}
+            </tr>
+        }
     </table>
-    <div class="panel-footer add-item-form">
-
-        <p>
-            Informe seu nome<br />
-
-            @Html.TextBox("Nome")
-
-     
-        <input type="button" value="Salvar" id="Salvar" />
-        <span id="msg" style="color:red;" />
-
-    </div>
+    @{
+        Html.RenderPartial("NovoUsuario", new NovoUsuariomodel());
+    }
 </div>
 

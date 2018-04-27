@@ -1,0 +1,14 @@
+﻿@model NovoUsuariomodel
+
+<div class="panel-footer add-item-form">
+
+    <p>
+        Informe seu nome<br />
+    </p>
+
+    <input asp-for="Nome" class="form-control" />
+    <span asp-validation-for="Nome" class="text-danger" />
+    <button class="btn btn-default" type="submit" value="Salvar" id="Salvar" />
+    <span id="msg" style="color:red;" />
+
+</div>
