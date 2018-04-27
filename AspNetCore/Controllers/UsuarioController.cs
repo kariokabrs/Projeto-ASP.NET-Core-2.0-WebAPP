@@ -44,7 +44,7 @@ namespace AspNetCore.Controllers
 {
                 return BadRequest(new { error = "Could	not	add	item" });
             }
-            return Ok();
+            return new JsonResult("Dados inseridos");
         }
     }
 }
