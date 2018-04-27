@@ -11,6 +11,7 @@ namespace AspNetCore.DBCoontext
         //                  sqllocaldb info ( para checar se tem um SQLLocalDB instalado);
         //                  sqllocaldb create "MyLocalDB" para criar uma instancia do DB chamada MyLocalDB;
         //                  sqllocaldb start "MyLocalDB" para incializar a instancia MyLocalDB;
+        //Para alterar a migração, caso altere seu POCO e já atualziada no BD, use o comando com o nome da migração: update-database "Initial Migration"
         public LibraryContext(DbContextOptions options) : base(options)
         {
 

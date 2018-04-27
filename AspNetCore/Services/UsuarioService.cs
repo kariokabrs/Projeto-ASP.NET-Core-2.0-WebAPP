@@ -1,13 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AspNetCore.Classes;
 using AspNetCore.DBCoontext;
+using AspNetCore.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace AspNetCore.Services
 {
-    public class UsuarioService : IUsuarioService 
+    public class UsuarioService : IUsuarioService
     {
 
         private readonly LibraryContext _context;
@@ -20,28 +22,24 @@ namespace AspNetCore.Services
         // Novo método agora usando o banco de dados Core criado pelo codeFirst.
         public async Task<IEnumerable<Usuario>> GetUsuariosAsync()
         {
-            var items = await _context.Usuarios.Where(x => x.Feito == false).ToArrayAsync();
+            var items = await _context.Usuarios.ToArrayAsync();
             return items;
         }
 
-            /// Método usado sem o banco de dados. 
-            //public Task<IEnumerable<Usuario>> GetUsuariosAsync()
-            //{
-            //    // Retorna o array de usuários										
-            //    IEnumerable<Usuario> items = new[]
-            //    {
-            //    new Usuario
-            //    {
-            //        Nome   =   "Sergio",
-            //        DiaCadastro   =   DateTimeOffset.Now.AddDays(1)
-            //    },
-            //    new Usuario
-            //    {
-            //        Nome   =   "Carlos",
-            //        DiaCadastro   =   DateTimeOffset.Now.AddDays(2)
-            //    }
-            //};
-            //    return Task.FromResult(items);
-            //}
+        public async Task<bool> AddItemAsync(NovoUsuariomodel novoUsuario)
+        {
+            var entity = new Usuario
+            {
+                Nome = novoUsuario.Nome,
+                DiaCadastro = DateTimeOffset.Now.AddDays(3)
+            };
+
+            _context.Usuarios.Add(entity);
+            var saveResult = await _context.SaveChangesAsync();
+            return saveResult == 1;
+        }
+
     }
+ 
 }
+

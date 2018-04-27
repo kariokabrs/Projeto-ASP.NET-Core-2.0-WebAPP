@@ -28,8 +28,6 @@ namespace AspNetCore.Migrations
                     b.Property<DateTimeOffset?>("DiaCadastro")
                         .IsRequired();
 
-                    b.Property<bool>("Feito");
-
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasMaxLength(80);

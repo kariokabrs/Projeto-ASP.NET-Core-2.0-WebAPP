@@ -11,8 +11,8 @@ using System;
 namespace AspNetCore.Migrations
 {
     [DbContext(typeof(LibraryContext))]
-    [Migration("20180426092959_Initial Migration")]
-    partial class InitialMigration
+    [Migration("20180427091609_MyMigration")]
+    partial class MyMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -26,11 +26,12 @@ namespace AspNetCore.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTimeOffset?>("DiaCadastro");
+                    b.Property<DateTimeOffset?>("DiaCadastro")
+                        .IsRequired();
 
-                    b.Property<bool>("Feito");
-
-                    b.Property<string>("Nome");
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasMaxLength(80);
 
                     b.HasKey("Id");
 

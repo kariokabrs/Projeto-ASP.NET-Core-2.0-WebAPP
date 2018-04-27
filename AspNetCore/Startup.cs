@@ -22,17 +22,16 @@ namespace AspNetCore
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-           
-            //Adcionar a connectionstring como um serviço ao projeto e referenciar o LibraryContext
-            services.AddDbContext<LibraryContext>(options => options.UseSqlServer(Configuration.GetConnectionString("LibraryConnection")));
-            
-            //Adcionar o Singleton no UsuarioService com EF core. 
-            services.AddScoped<IUsuarioService, UsuarioService>();
-            
-            // Adciona singleton do UsuarioService no Startup.cs
-            //services.AddSingleton<IUsuarioService, UsuarioService>();
-            
             services.AddMvc();
+
+            // Adciona singleton do UsuarioService no Startup.cs se o EF não for utilizado
+             services.AddSingleton(Configuration);
+
+            // Adcionar o Singleton no UsuarioService se  o EF core for utlizado. 
+            services.AddScoped<IUsuarioService, UsuarioService>();
+
+            // Adcionar a connectionstring como um serviço ao projeto e referenciar o LibraryContext
+            services.AddDbContext<LibraryContext>(options => options.UseSqlServer(Configuration.GetConnectionString("LibraryConnection")));
             
         }
 
@@ -51,12 +50,12 @@ namespace AspNetCore
 
             app.UseStaticFiles();
 
-            //Aqui faz a View do Controle Usuarios ser carregada primeira, pois as rotas definidas vão na ordem abaixo
+            // Aqui faz a View do Controle Usuarios ser carregada primeira, pois as rotas definidas vão na ordem abaixo
             app.UseMvc(routes =>
             {
                 // New route Usuarios ATENCAO: Se colocar o nome do template em letra MAIUSCULA o sistema fica instável (bug)
                 routes.MapRoute(
-                   name: "usuario",
+                   name: "usuarios,{*usuarios}",
                    template: "{controller=Usuarios}/{action=Index}/{id?}");
                 // Default Route
                 routes.MapRoute(

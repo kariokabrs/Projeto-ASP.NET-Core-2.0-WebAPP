@@ -16,10 +16,9 @@ namespace AspNetCore.Controllers
         {
             _Iusuario = Iusuario;
         }
-
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
-
             var usuarios = await _Iusuario.GetUsuariosAsync();
             var model = new UsuarioViewModel() { Items = usuarios };
 
@@ -28,8 +27,22 @@ namespace AspNetCore.Controllers
                 return View("Dados não encontrados");
             }
 
-            return View("Views/Usuario/ReadUsuario.cshtml",model);
+            return View(model);
 
+        }
+        [HttpPost]
+        public async Task<IActionResult> AddItemAsync(NovoUsuariomodel novoUsuario)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var successful = await _Iusuario.AddItemAsync(novoUsuario);
+            if (!successful) 
+{
+                return BadRequest(new { error = "Could	not	add	item" });
+            }
+            return Ok();
         }
     }
 }
