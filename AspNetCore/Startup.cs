@@ -24,13 +24,17 @@ namespace AspNetCore
         {
             services.AddMvc();
 
+            // Para especificar a quantidade de erros de validação permitida. 
+
+            services.AddMvc(options => options.MaxModelValidationErrors = 50);
+
             // Adciona singleton do UsuarioService no Startup.cs se o EF não for utilizado
-             services.AddSingleton(Configuration);
+            services.AddSingleton(Configuration);
 
             // Adcionar o Singleton no UsuarioService se  o EF core for utlizado. 
             services.AddScoped<IUsuarioService, UsuarioService>();
 
-            // Adcionar a connectionstring como um serviço ao projeto e referenciar o LibraryContext
+            // Adcionar a connectionstring do BD como um serviço ao projeto e referenciar o LibraryContext
             services.AddDbContext<LibraryContext>(options => options.UseSqlServer(Configuration.GetConnectionString("LibraryConnection")));
             
         }
