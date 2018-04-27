@@ -5,17 +5,18 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AspNetCore.Controllers
 {
-    public class UsuariosController : Controller
+    public class UsuarioController : Controller
     {
 
         // Dependecy injection no controle Usuario
         // Para não haver erro de hierarquia e nível a Interface foi declarada publica. 
         private readonly IUsuarioService _Iusuario;
 
-        public UsuariosController(IUsuarioService Iusuario)
+        public UsuarioController(IUsuarioService Iusuario)
         {
             _Iusuario = Iusuario;
         }
+       
         [HttpGet]
         public async Task<IActionResult> Index()
         {
@@ -27,10 +28,11 @@ namespace AspNetCore.Controllers
                 return View("Dados não encontrados");
             }
 
-            return View(model);
+            return View("~/Views/Usuario/index.cshtml",model);
 
         }
-        [HttpPost]
+       
+        [HttpPost("additem")]
         public async Task<IActionResult> AddItemAsync(NovoUsuariomodel novoUsuario)
         {
             if (!ModelState.IsValid)
