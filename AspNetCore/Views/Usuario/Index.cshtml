@@ -12,7 +12,7 @@
     <table class="table	table-hover">
         <thead>
             <tr>
-                <td>&#x2714;</td>
+                @*<td>&#x2714;</td>*@
                 <td>Nome</td>
                 <td>Dia Cadastrado</td>
             </tr>
@@ -26,7 +26,7 @@
         }
     </table>
     @{
-        Html.RenderPartial("NovoUsuario", new NovoUsuariomodel());
+        Html.RenderPartial("PartialViewNovoUsuario", new NovoUsuariomodel());
     }
 </div>
 

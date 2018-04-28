@@ -36,6 +36,7 @@ namespace AspNetCore.Controllers
        
         // Aqui declaro que o método é post sem precisar discriminar no chamador da View PartialViewNovoUsuario e dando o nome da ação em vez do método abaixo AddItemAsync para additem. 
         [HttpPost("additem")]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddItemAsync(NovoUsuariomodel novoUsuario)
         {
             if (!ModelState.IsValid)

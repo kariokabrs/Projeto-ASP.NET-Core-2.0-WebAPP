@@ -6,19 +6,17 @@ using System.Runtime.Serialization;
 namespace AspNetCore.Classes
 
 {
-    [DataContract(Name = "Usuarios", Namespace = "http:/alphabetacom.wordpres.com")]
     public class Usuario
     {
 
         // POCO 
-        [DataMember(Name = "ID")]
+        // So deve usar o atributo KEY abaixo se a entidade não se chama ID ou Nome da classe seguido de ID: UsuarioID. 
+        // Aqui coloquei apenas para o aprendizado
         [Key]
         public int Id { get; set; }
-        [DataMember(Name = "Usuario Nome")]
         [Required]
         [MaxLength(80)]
         public string Nome { get; set; }
-        [JsonIgnore]   
         public DateTimeOffset? DiaCadastro { get; set; }
     }
 }

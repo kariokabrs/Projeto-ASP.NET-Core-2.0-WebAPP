@@ -6,7 +6,6 @@ namespace AspNetCore.Models
     {
         // Atributo requerido. 
         [Required]
-        [Display(Name = "Usuario")]
         public string Nome { get; set; }
     }
 }

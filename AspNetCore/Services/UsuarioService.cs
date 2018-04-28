@@ -18,17 +18,18 @@ namespace AspNetCore.Services
 
         public UsuarioService(LibraryContext context)
         {
-            //DI Pattern
+            //DI Pattern no construtor dessa classe para inicializar a classe LibraryContext usada para manipular os dados no BD na DBSet Usuarios
             _context = context;
         }
 
-        // Novo método agora usando o banco de dados Core criado pelo codeFirst.
+        // Metodo Select do GET do UsuarioController
         public async Task<IEnumerable<Usuario>> GetUsuariosAsync()
         {
             var items = await _context.Usuarios.ToArrayAsync();
             return items;
         }
 
+        // Método Insert do POST do UsuarioController
         public async Task<bool> AddItemAsync(NovoUsuariomodel novoUsuario)
         {
             var entity = new Usuario

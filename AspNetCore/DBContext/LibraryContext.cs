@@ -12,11 +12,13 @@ namespace AspNetCore.DBCoontext
         //                  sqllocaldb create "MyLocalDB" para criar uma instancia do DB chamada MyLocalDB;
         //                  sqllocaldb start "MyLocalDB" para incializar a instancia MyLocalDB;
         //Para alterar a migração, caso altere seu POCO e já atualziada no BD, use o comando com o nome da migração: update-database "Initial Migration"
+
+        // Criar construtor desta classe para iniciar instancia do DbContext passando uma variavel chamada opption ao mesmo usando : base(options)
         public LibraryContext(DbContextOptions options) : base(options)
         {
 
         }
-
+        // DbSet que manipula os dados no Banco de Dados, no caso que é SQL Server, na linguagem T-SQL ,ou seja faz os queries diretamente no Banco, usado pelos método da Interface IUsuarioService
         public DbSet<Usuario> Usuarios { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
