@@ -20,9 +20,6 @@
         @foreach (var item in Model.Items)
         {
             <tr>
-                <td>
-                    <input type="checkbox" name="@item.Id" value="true" class="done-checkbox">
-                </td>
                 <td>@item.Nome</td>
                 <td>@item.DiaCadastro.Humanize()</td>
             </tr>

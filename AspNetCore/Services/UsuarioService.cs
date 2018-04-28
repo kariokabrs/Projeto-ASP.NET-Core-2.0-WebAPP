@@ -12,10 +12,13 @@ namespace AspNetCore.Services
     public class UsuarioService : IUsuarioService
     {
 
+        // Dependecy Injection Pattern.
+        // Declarar um readonly private e carregar no contrutor desta classe. 
         private readonly LibraryContext _context;
 
         public UsuarioService(LibraryContext context)
         {
+            //DI Pattern
             _context = context;
         }
 

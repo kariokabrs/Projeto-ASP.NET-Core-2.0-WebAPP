@@ -5,7 +5,7 @@ namespace AspNetCore.Models
     public class NovoUsuariomodel
     {
         [Required]
-        [Display(Name = "Nome")]
+        [Display(Name = "Usuario")]
         public string Nome { get; set; }
     }
 }
