@@ -1,4 +1,12 @@
-﻿<!DOCTYPE html>
+﻿@*Aqui para alterar as configurations de qualquer area do chtml usando uma classe MinhaConfiguracao com algumas proprioedas e pasando depois como variável. Aqui também ativo algumas propriedades de Configuração como o nome do computador no footer da página.*@ 
+
+@using AspNetCore.Classes;
+@inject Microsoft.Extensions.Configuration.IConfiguration Configuration
+@inject Microsoft.Extensions.Options.IOptions<MinhaConfiguracao> MinhaConfigOptions
+@{ 
+    var MinhaConfig = MinhaConfigOptions.Value ;
+}
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -43,7 +51,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - AspNetCore</p>
+            <p>&copy; @DateTime.Now.Year - AspNetCore - @Configuration["ComputerName"]</p>
         </footer>
     </div>
 

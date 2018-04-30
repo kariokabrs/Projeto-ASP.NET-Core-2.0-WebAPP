@@ -1,4 +1,5 @@
-﻿using AspNetCore.DBCoontext;
+﻿using AspNetCore.Classes;
+using AspNetCore.DBCoontext;
 using AspNetCore.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -6,6 +7,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Linq;
 
 namespace AspNetCore
 {
@@ -24,6 +27,9 @@ namespace AspNetCore
         {
 
             services.AddMvc();
+
+            // Aqui preciso dizer a classe Startup que tenho configurações manuais a fazer da classe MinhaConfiguracao
+            services.Configure<MinhaConfiguracao>(Configuration.GetSection("MinhaConfiguracao"));
 
             // Para especificar a quantidade de erros de validação permitida. 
             services.AddMvc(options => options.MaxModelValidationErrors = 50);
@@ -69,12 +75,26 @@ namespace AspNetCore
             //    await next();
             //});
 
-            //app.Run(async (context) =>
+            //app.Use(async (context, next) =>
             //{
-            //    await context.Response.WriteAsync("Hello World From 2nd Middleware");
+            //    await context.Response.WriteAsync("Hello World From 2nd Middleware!");
+
+            //    await next();
             //});
 
+            //app.Run(async (context) =>
+            //{
+            //    await context.Response.WriteAsync("Hello World From 3rd Middleware");
+            //});
 
+            //// Aqui middlaware para quando o usuario tentar na pagina Usuarios
+            //app.Map("/Usuario", a => a.Run(async context =>
+            //{
+            //    await context.Response.WriteAsync("Gotcha");
+            //}));
+
+            // Aqui escreve na tela através do middleware caso encontre o navegador do FireFox chamando o Método FirefoxRoute
+            app.MapWhen(context => context.Request.Headers["User-Agent"].First().Contains("Firefox"), FirefoxRoute);
 
             app.UseStaticFiles();
 
@@ -91,6 +111,14 @@ namespace AspNetCore
                    template: "{controller=Home}/{action=Index}/{id?}");
             });
 
+        }
+
+        private void FirefoxRoute(IApplicationBuilder app)
+        {
+            app.Run(async context =>
+            {
+                await context.Response.WriteAsync("Use este sistema inicialmente no Google Chrome onde foi testado!a");
+            });
         }
     }
 }
