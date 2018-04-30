@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using AspNetCore.Models;
 using AspNetCore.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -25,6 +26,11 @@ namespace AspNetCore.Controllers
         //public async Task<IActionResult> Index([FromServices] IUsuarioService Isuario)
         public async Task<IActionResult> Index()
         {
+
+            // Se eu não quiser chamar a DI no construtor, _IUsuario eu posso fazer dentro do metódo de forma dependente o seguite, o que não é recomendado:
+            //var services = this.HttpContext.RequestServices;
+            //var log = (IUsuarioService)services.GetService(typeof(IUsuarioService));
+
             var usuarios = await _Iusuario.GetUsuariosAsync();
             var model = new UsuarioViewModel() { Items = usuarios };
 
@@ -33,6 +39,8 @@ namespace AspNetCore.Controllers
                 return View("Dados não encontrados");
             }
             // Aqui declaro o parametro da View visto esta uma pasta fora de Home, sua Path e sua ViewModel. 
+
+            //Console.WriteLine("~/Views/Usuario/index.cshtml");
             return View("~/Views/Usuario/index.cshtml",model);
              
         }
@@ -52,6 +60,7 @@ namespace AspNetCore.Controllers
                 return new JsonResult("Não pode inserir um item");
             }
             // Aqui retorno após inserir novo usuário JsonResult onde a string cairá no SPAN id=msg da PartialViewNovoUsuario. 
+
             return new JsonResult("Dados inseridos") ;
         }
     }
