@@ -2,41 +2,44 @@
 using AspNetCore.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AspNetCore
 {
-    //Ponto incial
+    // Ponto incial
     public class Startup
     {
-     
+        public IConfiguration Configuration { get; }
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
-
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.AddMvc();
 
             // Para especificar a quantidade de erros de validação permitida. 
-
             services.AddMvc(options => options.MaxModelValidationErrors = 50);
 
-            // Adciona singleton do UsuarioService no Startup.cs se o EF não for utilizado
+            // Adciona como Singleton o Startup.
             services.AddSingleton(Configuration);
 
-            // Adcionar o Singleton no UsuarioService se  o EF core for utlizado. 
+            // Adciona como SCOPED o UsuarioService se  o EF core for utlizado COM uso do Extension Method. 
             services.AddScoped<IUsuarioService, UsuarioService>();
 
-            // Adcionar a connectionstring do BD como um serviço ao projeto e referenciar o LibraryContext
+            // Adcionar o Singleton no UsuarioService se  o EF core for utlizado  SEM do Extension Method. 
+            //Services.Add(new ServiceDescriptor(typeof(IUsuarioService), typeof(UsuarioService), ServiceLifetime.Scoped)); 
+
+            // Adcionar a connectionstring do BD como um serviço ao projeto e referenciar o LibraryContext que é minha classe dDbContext para EF, Code First e Migrations.
             services.AddDbContext<LibraryContext>(options => options.UseSqlServer(Configuration.GetConnectionString("LibraryConnection")));
-            
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,6 +55,12 @@ namespace AspNetCore
                 app.UseExceptionHandler("/Home/Error");
             }
 
+            // Abaixo faço com que a aplicação ao iniciar apenas mostre a palavra Hello World.
+            //app.Run(async (context) =>
+            //{
+            //    await context.Response.WriteAsync("Hello World!");
+            //});
+
             app.UseStaticFiles();
 
             app.UseMvc(routes =>
@@ -60,7 +69,7 @@ namespace AspNetCore
                 routes.MapRoute(
                    name: "usuario",
                    template: "usuario/",
-                defaults: new { controller = "Usuarios", action = "index" });
+                   defaults: new { controller = "Usuarios", action = "index" });
                 // Default Route
                 routes.MapRoute(
                    name: "default",

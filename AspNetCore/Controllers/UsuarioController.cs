@@ -16,10 +16,13 @@ namespace AspNetCore.Controllers
         public UsuarioController(IUsuarioService Iusuario)
         {
             // DI Pattern
+            // Para funcionar preciso Adcionar UsuarioService se  o EF core for utlizado sem uso do Extension Method. 
             _Iusuario = Iusuario;
         }
        
         [HttpGet]
+        // Se eu precisar usar o Service IsuarioService em apenas um Método, não preciso declarar na contrução da classe apens colcoar um atributo como parametro. 
+        //public async Task<IActionResult> Index([FromServices] IUsuarioService Isuario)
         public async Task<IActionResult> Index()
         {
             var usuarios = await _Iusuario.GetUsuariosAsync();
@@ -31,12 +34,12 @@ namespace AspNetCore.Controllers
             }
 
             return View("~/Views/Usuario/index.cshtml",model);
-
+             
         }
        
         // Aqui declaro que o método é post sem precisar discriminar no chamador da View PartialViewNovoUsuario e dando o nome da ação em vez do método abaixo AddItemAsync para additem. 
         [HttpPost("additem")]
-        [ValidateAntiForgeryToken]
+
         public async Task<IActionResult> AddItemAsync(NovoUsuariomodel novoUsuario)
         {
             if (!ModelState.IsValid)
@@ -48,7 +51,8 @@ namespace AspNetCore.Controllers
 {
                 return new JsonResult("Não pode inserir um item");
             }
-            return new JsonResult("Dados inseridos");
+            await Index();
+            return new JsonResult("Dados inseridos") ;
         }
     }
 }

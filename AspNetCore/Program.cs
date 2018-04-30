@@ -16,8 +16,10 @@ namespace AspNetCore
         {
 
             // Este principal quando criado do zero a aplicação desativei e coloquei o abaixo.
+            // ASP.NET Core 2.0 usa assim o padrão
             BuildWebHost(args).Run();
 
+            // ASP.NET Core 1.0 usa assim o padrão
             //var host = new WebHostBuilder()
             //    .UseKestrel()
             //    .UseContentRoot(Directory.GetCurrentDirectory())
@@ -31,6 +33,7 @@ namespace AspNetCore
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                 // .UseStartup<MyStartup>() posso dar o nome por aqui <MyStartup> do meu arquivo startup
                 .UseStartup<Startup>()
                 .Build();
     }
