@@ -60,19 +60,19 @@ namespace AspNetCore
             //{
             //    await context.Response.WriteAsync("Hello World!");
             //});
-            app.UseWelcomePage();
-            // Chamar pelo app.Use primeiro permite gerar uma sequencia de middleware ( httphandlers. ) antes de carregar a view _layout 
-            app.Use(async (context, next) =>
-            {
-                await context.Response.WriteAsync("Hello World From 1st Middleware!");
+            //app.UseWelcomePage();
+            //// Chamar pelo app.Use primeiro permite gerar uma sequencia de middleware ( httphandlers. ) antes de carregar a view _layout 
+            //app.Use(async (context, next) =>
+            //{
+            //    await context.Response.WriteAsync("Hello World From 1st Middleware!");
 
-                await next();
-            });
+            //    await next();
+            //});
 
-            app.Run(async (context) =>
-            {
-                await context.Response.WriteAsync("Hello World From 2nd Middleware");
-            });
+            //app.Run(async (context) =>
+            //{
+            //    await context.Response.WriteAsync("Hello World From 2nd Middleware");
+            //});
 
 
 
