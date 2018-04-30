@@ -32,7 +32,7 @@ namespace AspNetCore.Controllers
             {
                 return View("Dados não encontrados");
             }
-
+            // Aqui declaro o parametro da View visto esta uma pasta fora de Home, sua Path e sua ViewModel. 
             return View("~/Views/Usuario/index.cshtml",model);
              
         }
@@ -51,7 +51,7 @@ namespace AspNetCore.Controllers
 {
                 return new JsonResult("Não pode inserir um item");
             }
-            await Index();
+            // Aqui retorno após inserir novo usuário JsonResult onde a string cairá no SPAN id=msg da PartialViewNovoUsuario. 
             return new JsonResult("Dados inseridos") ;
         }
     }
