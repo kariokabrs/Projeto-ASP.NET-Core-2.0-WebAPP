@@ -1,11 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace AspNetCore.Models
 {
     public class NovoUsuariomodel
     {
-        // Atributo requerido. 
+ 
         [Required]
+        [MaxLength(80)]
+        [Remote("ValidateNome", "Usuario")]
         public string Nome { get; set; }
     }
 }

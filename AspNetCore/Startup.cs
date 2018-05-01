@@ -104,7 +104,7 @@ namespace AspNetCore
                 routes.MapRoute(
                    name: "usuario",
                    template: "usuario/",
-                   defaults: new { controller = "Usuarios", action = "index" });
+                   defaults: new { controller = "Usuarios", action = "Index" });
                 // Default Route
                 routes.MapRoute(
                    name: "default",
