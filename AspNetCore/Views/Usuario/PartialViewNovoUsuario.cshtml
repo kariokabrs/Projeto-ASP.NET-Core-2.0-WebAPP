@@ -3,12 +3,14 @@
 <div class="panel-footer add-item-form">
 
     <p>
-        Adicionar Novo Usário<br />
+        Novo Usário<br />
     </p>
-    
-    <input asp-for="Nome" class="form-control" id="Nome"/>
-    <span asp-validation-for="Nome" class="text-danger" />
-    <input class="btn btn-default" type="button" value="Salvar" id="Salvar" />
-    <span id="msg" style="color:red;" />
 
+    <input asp-for="Nome" class="form-control" id="Nome" />
+    <span asp-validation-for="Nome" class="text-danger" />
+    <button class="btn btn-default" type="button" id="Salvar">
+        <i class="fa fa-save" style"color:Red"></i> Salvar
+    </button>
+    <span id="msg" style="color:red;" />
+    
 </div>

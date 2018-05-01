@@ -16,6 +16,8 @@
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
+        @* Incluir o CDN FontAwesome para incluir alguns Icones ao Menu da página*@
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
     </environment>
     @*Os arquivos Javascript e CSS serão carregados abaixo se o modo for em Staging or Production*@
     @* Posso usar isso <environment exclude="Development"> ou:*@
@@ -41,7 +43,7 @@
                     </div>
                     <div class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
-                            <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                            <li><a asp-area="" asp-controller="Home" asp-action="Index"><i class="fa fa-home fa-lg" style="color:red"></i> Home</a></li>
                             <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                             <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
                             <li><a asp-area="" asp-controller="Usuarios" asp-action="Index">Usuários</a></li>
