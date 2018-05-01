@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AspNetCore.Models;
 using AspNetCore.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 
 namespace AspNetCore.Controllers
@@ -25,7 +29,7 @@ namespace AspNetCore.Controllers
 
         [HttpGet]
         // Aquilo coloco o atributo Route para configurar meu erro personalizado na Startup Class.
-        [Route("/Error")]
+        //[Route("/Error")]
         // Se eu precisar usar o Service IsuarioService em apenas um Método, não preciso declarar na contrução da classe apens colcoar um atributo como parametro. 
         //public async Task<IActionResult> Index([FromServices] IUsuarioService Isuario)
         public async Task<IActionResult> Index()
@@ -46,13 +50,13 @@ namespace AspNetCore.Controllers
             // Aqui declaro o parametro da View visto esta uma pasta fora de Home, sua Path e sua ViewModel. 
 
             //Console.WriteLine("~/Views/Usuario/index.cshtml");
-            return View("~/View/Usuario/index.cshtml", model);
+            return View("~/Views/Usuario/index.cshtml", model);
 
         }
 
         // Aqui declaro que o método é post sem precisar discriminar no chamador da View PartialViewNovoUsuario e dando o nome da ação em vez do método abaixo AddItemAsync para additem. 
         [HttpPost("additem")]
-        [Route("/Error")]
+        //[Route("/Error")]
         // implementar [ValidateAntiForgeryToken]
         // usar [Bind(nameof(NovoUsuariomodel.Nome))] para evitar ataque Mass assignment, também conhecido como Over-posting
         public async Task<IActionResult> AddItem([Bind(nameof(NovoUsuariomodel.Nome))] NovoUsuariomodel novoUsuario)
@@ -70,7 +74,12 @@ namespace AspNetCore.Controllers
             }
             else
             {
-                return new JsonResult("Dados n inseridos");
+                // Aqui contruo uma variavel que me retornará o erro diretamente do ModelState sem precisar redirecionar ou chamar novamente a View() e coloco o valor como forma de JsonResult. 
+                var errorList = (from item in ModelState
+                                 where item.Value.Errors.Any()
+                                 select item.Value.Errors[0].ErrorMessage).ToList();
+
+                return new JsonResult(errorList);
             }
 
         }
@@ -88,5 +97,7 @@ namespace AspNetCore.Controllers
         //    }
 
         //}
+
     }
+
 }

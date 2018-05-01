@@ -5,6 +5,7 @@ namespace AspNetCore.Models
 {
     public class NovoUsuariomodel
     {
+        // Aqui defino meu próprios erros em vez do gerado pelo ValidateModel do Ajax unobtrusive.
         [Required(ErrorMessage = "O nome não pode estar em branco")]
         [MaxLength(80,ErrorMessage = "Apenas 80 caracteres permitidos!")]
         [Display(Name = "Primeiro Nome")]
