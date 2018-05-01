@@ -7,6 +7,7 @@
     // Aqui desabilita o button de ser apertado novamente
     _this.attr('disabled', 'disabled');
     //show the loading image e hide o icone salvar atual
+    $("#msg").hide();
     $("#icon").hide();
     $("#progress").show();
     
@@ -17,6 +18,7 @@
         //hide the progress bar div e show o icone salvar
         $("#icon").show();
         $("#progress").hide();
+        $("#msg").show();
         $("#msg").html(data);
 
     });
