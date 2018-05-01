@@ -5,12 +5,26 @@
     <p>
         Novo Usário<br />
     </p>
-
-    <input asp-for="Nome" class="form-control" id="Nome" />
-    <span asp-validation-for="Nome" class="text-danger" />
+    @*Trabalhando com o FontAwesome*@
+    <div class="input-group input-group-lg">
+        <span class="input-group-addon">
+            <i class="fa fa-user"></i>
+        </span>
+        <input asp-for="Nome" class="form-control" type="text" placeholder="Nome" id="Nome" />
+        <span asp-validation-for="Nome" class="text-danger" />
+    </div>
+  
+   
     <button class="btn btn-default" type="button" id="Salvar">
-        <i class="fa fa-save" style"color:Red"></i> Salvar
+        <span id="icon">
+            <i class="fa fa-save" style"color:Red"></i> Salvar
+        </span>  
+        @*Este spam faz com que o ícone do FontAwesome aparece girando chamando pelo JQuey no site.js*@
+        <spam id="progress" style="display:none;">
+            <i class='fa fa-refresh fa-spin'></i>
+        </spam>
     </button>
+    @*Aqui insere a resposta do Controller se tudo ocorrer bem*@
     <span id="msg" style="color:red;" />
-    
+
 </div>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using AspNetCore.Classes;
 using AspNetCore.DBCoontext;
@@ -38,6 +39,9 @@ namespace AspNetCore.Services
                 Nome = novoUsuario.Nome,
                 DiaCadastro = DateTimeOffset.Now.AddDays(3)
             };
+
+            //para segurar a execução de salvar da chamada Insert do Library Context para ver o icone do botão progress funcionando. 
+            Thread.Sleep(5000);
 
             _context.Usuarios.Add(entity);
             // Insert da DbSet Usuarios da LibraryContext
