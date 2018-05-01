@@ -20,7 +20,7 @@ namespace AspNetCore.Controllers
             // Para funcionar preciso Adcionar UsuarioService se  o EF core for utlizado sem uso do Extension Method. 
             _Iusuario = Iusuario;
         }
-       
+
         [HttpGet]
         // Se eu precisar usar o Service IsuarioService em apenas um Método, não preciso declarar na contrução da classe apens colcoar um atributo como parametro. 
         //public async Task<IActionResult> Index([FromServices] IUsuarioService Isuario)
@@ -32,7 +32,10 @@ namespace AspNetCore.Controllers
             //var log = (IUsuarioService)services.GetService(typeof(IUsuarioService));
 
             var usuarios = await _Iusuario.GetUsuariosAsync();
-            var model = new UsuarioViewModel() { Items = usuarios };
+            var model = new UsuarioViewModel()
+            {
+                Items = usuarios
+            };
 
             if (usuarios == null)
             {
@@ -41,10 +44,10 @@ namespace AspNetCore.Controllers
             // Aqui declaro o parametro da View visto esta uma pasta fora de Home, sua Path e sua ViewModel. 
 
             //Console.WriteLine("~/Views/Usuario/index.cshtml");
-            return View("~/Views/Usuario/index.cshtml",model);
-             
+            return View("~/Views/Usuario/index.cshtml", model);
+
         }
-       
+
         // Aqui declaro que o método é post sem precisar discriminar no chamador da View PartialViewNovoUsuario e dando o nome da ação em vez do método abaixo AddItemAsync para additem. 
         [HttpPost("additem")]
 
@@ -55,13 +58,13 @@ namespace AspNetCore.Controllers
                 return BadRequest(ModelState);
             }
             var successful = await _Iusuario.AddItemAsync(novoUsuario);
-            if (!successful) 
-{
+            if (!successful)
+            {
                 return new JsonResult("Não pode inserir um item");
             }
             // Aqui retorno após inserir novo usuário JsonResult onde a string cairá no SPAN id=msg da PartialViewNovoUsuario. 
 
-            return new JsonResult("Dados inseridos") ;
+            return new JsonResult("Dados inseridos");
         }
     }
 }
