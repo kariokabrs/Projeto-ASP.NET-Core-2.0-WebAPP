@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
 
@@ -49,17 +50,40 @@ namespace AspNetCore
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            loggerFactory.AddConsole();
             if (env.IsDevelopment())
             {
                 app.UseBrowserLink();
                 app.UseDeveloperExceptionPage();
+                //app.UseStatusCodePages("text/plain", "Status code page, status code: {0}");
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                //app.UseExceptionHandler("/Home/Error");
+                // Aqui eu coloco um erro personalizado ( bom para se usar em modo de produção ) na página independente do environment, e coloco um atributo ROUTE nos métodos com a localização do erro /Error.
+                app.UseStatusCodePages(async context =>
+                {
+                    context.HttpContext.Response.ContentType = "text/plain";
+                    await context.HttpContext.Response.WriteAsync(
+                        "Opa, o erro aconteceu: " +
+                        context.HttpContext.Response.StatusCode);
+                });
             }
+
+            // Aqui eu coloco um erro personalizado ( bom para se usar em modo de produção ) na página independente do environment, e coloco um atributo ROUTE nos métodos com a localização do erro /Error.
+            //app.UseStatusCodePages(async context =>
+            //{
+            //    context.HttpContext.Response.ContentType = "text/plain";
+            //    await context.HttpContext.Response.WriteAsync(
+            //        "Opa, o erro aconteceu: " +
+            //        context.HttpContext.Response.StatusCode);
+            //});
+
+            // Ou posso usar o erro assim fora do env para todos os tipos:
+
+            app.UseStatusCodePages("text/plain", "Opa, o erro aconteceu: {0}");
 
             // Abaixo faço com que a aplicação ao iniciar apenas mostre a palavra Hello World.
             //app.Run(async (context) =>

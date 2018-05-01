@@ -24,6 +24,8 @@ namespace AspNetCore.Controllers
         }
 
         [HttpGet]
+        // Aquilo coloco o atributo Route para configurar meu erro personalizado na Startup Class.
+        [Route("/Error")]
         // Se eu precisar usar o Service IsuarioService em apenas um Método, não preciso declarar na contrução da classe apens colcoar um atributo como parametro. 
         //public async Task<IActionResult> Index([FromServices] IUsuarioService Isuario)
         public async Task<IActionResult> Index()
@@ -44,12 +46,13 @@ namespace AspNetCore.Controllers
             // Aqui declaro o parametro da View visto esta uma pasta fora de Home, sua Path e sua ViewModel. 
 
             //Console.WriteLine("~/Views/Usuario/index.cshtml");
-            return View("~/Views/Usuario/index.cshtml", model);
+            return View("~/View/Usuario/index.cshtml", model);
 
         }
 
         // Aqui declaro que o método é post sem precisar discriminar no chamador da View PartialViewNovoUsuario e dando o nome da ação em vez do método abaixo AddItemAsync para additem. 
         [HttpPost("additem")]
+        [Route("/Error")]
         // implementar [ValidateAntiForgeryToken]
         // usar [Bind(nameof(NovoUsuariomodel.Nome))] para evitar ataque Mass assignment, também conhecido como Over-posting
         public async Task<IActionResult> AddItem([Bind(nameof(NovoUsuariomodel.Nome))] NovoUsuariomodel novoUsuario)
