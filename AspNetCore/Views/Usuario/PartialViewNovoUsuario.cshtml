@@ -1,14 +1,14 @@
 ﻿@model NovoUsuariomodel
 
+
 <form asp-controller="Home" asp-action="additem" method="post">
 
     <div asp-validation-summary="All"></div>
 
     <div class="panel-footer add-item-form">
 
-        <p>
-            Novo Usário<br />
-        </p>
+        @Html.LabelFor(nome => Model.Nome)
+
         @*Trabalhando com o FontAwesome*@
         <div class="input-group input-group-lg">
             <span class="input-group-addon">
