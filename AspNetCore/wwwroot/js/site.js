@@ -1,4 +1,6 @@
-﻿$('#Salvar').click(function (e) {
+﻿// PartialViewNovo
+
+$('#Salvar').click(function (e) {
 
     e.preventDefault;
     var _this = $(this);
@@ -10,7 +12,7 @@
     $("#msg").hide();
     $("#icon").hide();
     $("#progress").show();
-    
+
 
     $.post(url, { Nome: nome }, function (data) {
         // checa a response do controller and ativa o button novamente
@@ -23,3 +25,6 @@
 
     });
 });
+
+// end
+

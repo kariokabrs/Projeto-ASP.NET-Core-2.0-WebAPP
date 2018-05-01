@@ -50,28 +50,29 @@ namespace AspNetCore.Controllers
 
         // Aqui declaro que o método é post sem precisar discriminar no chamador da View PartialViewNovoUsuario e dando o nome da ação em vez do método abaixo AddItemAsync para additem. 
         [HttpPost("additem")]
-        // Preciso implementar no AJAX [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddItem(NovoUsuariomodel novoUsuario)
+        // implementar [ValidateAntiForgeryToken]
+        // usar [Bind(nameof(NovoUsuariomodel.Nome))] para evitar ataque Mass assignment, também conhecido como Over-posting
+        public async Task<IActionResult> AddItem([Bind(nameof(NovoUsuariomodel.Nome))] NovoUsuariomodel novoUsuario)
         {
             if (ModelState.IsValid)
             {
-              await _Iusuario.AddItemAsync(novoUsuario);
+                await _Iusuario.AddItemAsync(novoUsuario);
 
-                var json = JsonConvert.SerializeObject(novoUsuario);
-               
                 // Aqui retorno após inserir novo usuário JsonResult onde a string cairá no SPAN id=msg da PartialViewNovoUsuario. 
                 return new JsonResult("Dados inseridos");
-                    // Aqui para retornar uma nova view ususario ou pelo nome do método do controller Usuario
-                    //return RedirectToRoute("usuario");
-                    //return RedirectToAction("Index");
-              }
+
+                // Aqui para retornar uma nova view ususario ou pelo nome do método do controller Usuario
+                //return RedirectToRoute("usuario");
+                //return RedirectToAction(nameof(Index));
+            }
             else
             {
                 return new JsonResult("Dados n inseridos");
             }
 
         }
-        //Metodo chamado pelo REMOTE da ViewModel NovoUsuariomodel
+        //Metodo chamado pelo REMOTE da ViewModel NovoUsuariomodel de ida e volta ao servidorn
+        //[AcceptVerbs("Get", "Post")]
         //public IActionResult ValidateNome(string nome)
         //{
         //    if (nome == "")
