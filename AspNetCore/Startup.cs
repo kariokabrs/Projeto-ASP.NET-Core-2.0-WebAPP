@@ -1,5 +1,4 @@
 ﻿using AspNetCore.Classes;
-using AspNetCore.Controllers;
 using AspNetCore.DBCoontext;
 using AspNetCore.Services;
 using Microsoft.AspNetCore.Builder;
@@ -9,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Linq;
 
 namespace AspNetCore
@@ -42,7 +40,7 @@ namespace AspNetCore
             // Adciona como SCOPED o UsuarioService se  o EF core for utlizado COM uso do Extension Method. 
             services.AddScoped<IUsuarioService, UsuarioService>();
 
-            // Adcionar o Singleton no UsuarioService se  o EF core for utlizado  SEM do Extension Method. 
+            // Outra forma de adicionar as classes Serviços como SCOPED o UsuarioService se  o EF core for utlizado COM sem uso do Extension Method. 
             //Services.Add(new ServiceDescriptor(typeof(IUsuarioService), typeof(UsuarioService), ServiceLifetime.Scoped)); 
 
             // Adcionar a connectionstring do BD como um serviço ao projeto e referenciar o LibraryContext que é minha classe dDbContext para EF, Code First e Migrations.
@@ -54,6 +52,7 @@ namespace AspNetCore
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddConsole();
+
             if (env.IsDevelopment())
             {
                 app.UseBrowserLink();
@@ -63,6 +62,7 @@ namespace AspNetCore
             else
             {
                 //app.UseExceptionHandler("/Home/Error");
+
                 // Aqui eu coloco um erro personalizado ( bom para se usar em modo de produção ) na página independente do environment, e coloco um atributo ROUTE nos métodos com a localização do erro /Error.
                 app.UseStatusCodePages(async context =>
                 {
@@ -86,13 +86,16 @@ namespace AspNetCore
 
             app.UseStatusCodePages("text/plain", "Opa, o erro aconteceu: {0}");
 
-            // Abaixo faço com que a aplicação ao iniciar apenas mostre a palavra Hello World.
+            /// Abaixo faço com que a aplicação ao iniciar apenas mostre a palavra Hello World.
             //app.Run(async (context) =>
             //{
             //    await context.Response.WriteAsync("Hello World!");
             //});
+
+            /// Chamar uma página Welcome.
             //app.UseWelcomePage();
-            //// Chamar pelo app.Use primeiro permite gerar uma sequencia de middleware ( httphandlers. ) antes de carregar a view _layout 
+
+            /// Chamar pelo app.Use primeiro permite gerar uma sequencia de middleware ( httphandlers. ) antes de carregar a view _layout 
             //app.Use(async (context, next) =>
             //{
             //    await context.Response.WriteAsync("Hello World From 1st Middleware!");
@@ -112,7 +115,7 @@ namespace AspNetCore
             //    await context.Response.WriteAsync("Hello World From 3rd Middleware");
             //});
 
-            //// Aqui middlaware para quando o usuario tentar na pagina Usuarios
+            //// Aqui middlaware para quando o usuario for na pagina Usuarios
             //app.Map("/Usuario", a => a.Run(async context =>
             //{
             //    await context.Response.WriteAsync("Gotcha");
@@ -121,8 +124,10 @@ namespace AspNetCore
             // Aqui escreve na tela através do middleware caso encontre o navegador do FireFox chamando o Método FirefoxRoute
             app.MapWhen(context => context.Request.Headers["User-Agent"].First().Contains("Firefox"), FirefoxRoute);
 
+            /// Aqui o uso dos Libraries em wwwroot, arqivos CSS e JS
             app.UseStaticFiles();
 
+            /// Aqui defino as rotas do sistema
             app.UseMvc(routes =>
             {
                 // New route Usuarios
@@ -138,6 +143,10 @@ namespace AspNetCore
 
         }
 
+        /// <summary>
+        /// Método chamado pelo aaap.When na linha 125.
+        /// </summary>
+        /// <param name="app"></param>
         private void FirefoxRoute(IApplicationBuilder app)
         {
             app.Run(async context =>
