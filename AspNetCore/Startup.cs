@@ -19,6 +19,7 @@ namespace AspNetCore
 
         public Startup(IConfiguration configuration)
         {
+            // DI da interface IConfiguration adicionado ao método ConfigureServices  como singleton pattern, linha 41.
             Configuration = configuration;
         }
 
