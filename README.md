@@ -18,3 +18,4 @@
 * Uso de configurações de Front-end personalizada;
 * Uso de Partial Viewss com Razor Views;
 * Expressões Lamba com LINQ;
+* Interpolação de String: $.
