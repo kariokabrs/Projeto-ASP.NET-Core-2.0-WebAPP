@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using AspNetCore.Models;
 using AspNetCore.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Newtonsoft.Json;
 
 namespace AspNetCore.Controllers
 {
@@ -18,8 +13,7 @@ namespace AspNetCore.Controllers
         // Dependecy injection no controle Usuario
         // Para não haver erro de hierarquia e nível e para poder inicializar a Interface foi declarada publica. 
         private readonly IUsuarioService _Iusuario;
-        private UsuarioViewModel model = new UsuarioViewModel();
-
+        
         public UsuarioController(IUsuarioService Iusuario)
         {
             // DI Pattern
@@ -34,8 +28,9 @@ namespace AspNetCore.Controllers
         //public async Task<IActionResult> Index([FromServices] IUsuarioService Isuario)
         public async Task<IActionResult> Index()
         {
+            UsuarioViewModel model = new UsuarioViewModel();
 
-            // Se eu não quiser chamar a DI no construtor, _IUsuario eu posso fazer dentro do metódo de forma dependente o seguite, o que não é recomendado:
+            // Se eu não quiser chamar a DI no construtor, _IUsuario eu posso fazer dentro do metódo de forma dependente o seguinte, o que não é recomendado:
             //var services = this.HttpContext.RequestServices;
             //var log = (IUsuarioService)services.GetService(typeof(IUsuarioService));
 
@@ -43,10 +38,6 @@ namespace AspNetCore.Controllers
             // aqui coloco o resultado do Metodo Getusuarios = usuarios e coloco na ViewModel, model definida instanciada acima. 
             model.Items = usuarios;
 
-            if (usuarios == null)
-            {
-                return new JsonResult("Não há resultados");
-            }
             // Aqui declaro o parametro da View visto esta uma pasta fora de Home, sua Path e sua ViewModel. 
 
             //Console.WriteLine("~/Views/Usuario/index.cshtml");
@@ -83,7 +74,7 @@ namespace AspNetCore.Controllers
             }
 
         }
-        //Metodo chamado pelo REMOTE da ViewModel NovoUsuariomodel de ida e volta ao servidorn
+        //Metodo chamado pelo REMOTE da ViewModel NovoUsuariomodel de ida e volta ao servidor
         //[AcceptVerbs("Get", "Post")]
         //public IActionResult ValidateNome(string nome)
         //{

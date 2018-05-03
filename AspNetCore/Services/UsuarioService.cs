@@ -41,7 +41,7 @@ namespace AspNetCore.Services
             };
 
             //para segurar a execução de salvar da chamada Insert do Library Context para ver o icone do botão progress funcionando. 
-            Thread.Sleep(5000);
+            //Thread.Sleep(5000);
 
             _context.Usuarios.Add(entity);
             // Insert da DbSet Usuarios da LibraryContext
