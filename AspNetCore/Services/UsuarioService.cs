@@ -27,9 +27,9 @@ namespace AspNetCore.Services
         public async Task<IEnumerable<Usuario>> GetUsuariosAsync()
         {
             // Select da DbSet Usuarios da LibraryContext _context
-            var items = await _context.Usuarios.ToArrayAsync();
+            var items = await _context.Usuarios.ToListAsync();
             return items;
-        }
+        } 
 
         // Método Insert do POST do UsuarioController
         public async Task<bool> AddItemAsync(NovoUsuariomodel novoUsuario)

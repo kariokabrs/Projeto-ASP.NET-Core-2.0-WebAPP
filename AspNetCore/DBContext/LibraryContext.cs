@@ -18,7 +18,7 @@ namespace AspNetCore.DBCoontext
         {
 
         }
-        // DbSet que manipula os dados no Banco de Dados, no caso que é SQL Server, na linguagem T-SQL ,ou seja faz os queries diretamente no Banco, usado pelos método da Interface IUsuarioService
+        // DbSet ou entity set que manipula os dados no Banco de Dados, no caso que é SQL Server, na linguagem T-SQL ,ou seja faz os queries diretamente no Banco, usado pelos método da Interface IUsuarioService
         public DbSet<Usuario> Usuarios { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -26,7 +26,7 @@ namespace AspNetCore.DBCoontext
             base.OnModelCreating(builder);
             //	Customize	the	ASP.NET	Identity	model	and	override	the	d efaults	if	needed.								
             //	For	example,	you	can	rename	the	ASP.NET	Identity	table	names	and	more.								
-            //	Add	your	customizations	after	calling	base.OnModelCreat ing(builder);				
+            //	Add	your	customizations	after	calling	base.OnModelCreating(builder);				
         }
     }
 }
