@@ -50,7 +50,7 @@ namespace AspNetCore.Controllers
         //[Route("/Error")]
         // implementar [ValidateAntiForgeryToken]
         // usar [Bind(nameof(NovoUsuariomodel.Nome))] para evitar ataque Mass assignment, também conhecido como Over-posting
-        public async Task<IActionResult> AddItem([Bind(nameof(NovoUsuariomodel.Nome))] NovoUsuariomodel novoUsuario)
+        public async Task<IActionResult> AddItem([Bind(nameof(NovoUsuariomodel.Nome), nameof(NovoUsuariomodel.Sobrenome))] NovoUsuariomodel novoUsuario)
         {
             if (ModelState.IsValid)
             {

@@ -14,10 +14,13 @@ namespace AspNetCore.Classes
         [Key]
         public int Id { get; set; }
         // essa regex indica que só pode ser letras e sem espaçamento em branco. 
-        [RegularExpression("[A-Za-z0-9].*")]
+        
         [Required]
         [MaxLength(80)]
         public string Nome { get; set; }
+   
+        [MaxLength(80)]
+        public string Sobrenome { get; set; }
         public DateTimeOffset? DiaCadastro { get; set; }
     }
 

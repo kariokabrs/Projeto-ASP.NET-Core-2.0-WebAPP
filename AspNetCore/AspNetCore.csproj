@@ -7,6 +7,7 @@
   <ItemGroup>
     <Compile Remove="Migrations\20180426091943_Inicial Migration.cs" />
     <Compile Remove="Migrations\20180426092645_Initial Migration.cs" />
+    <Compile Remove="Migrations\20180506175630_SobrenomeNotNull.cs" />
   </ItemGroup>
 
   <ItemGroup>

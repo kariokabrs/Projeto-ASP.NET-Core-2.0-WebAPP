@@ -23,9 +23,8 @@ namespace AspNetCore
             //host.Run();
         }
 
-        public static IWebHost BuildWebHost(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                 // .UseStartup<MyStartup>() posso dar o nome por aqui <MyStartup> do meu arquivo startup
+        public static IWebHost BuildWebHost(string[] args) => WebHost.CreateDefaultBuilder(args) 
+             // .UseStartup<MyStartup>() posso dar o nome por aqui <MyStartup> do meu arquivo startup
                 .UseStartup<Startup>()
                 .Build();
     }

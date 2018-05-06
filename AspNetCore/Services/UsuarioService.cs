@@ -37,6 +37,7 @@ namespace AspNetCore.Services
             var entity = new Usuario
             {
                 Nome = novoUsuario.Nome,
+                Sobrenome = novoUsuario.Sobrenome,
                 DiaCadastro = DateTimeOffset.Now.AddDays(3)
             };
 

@@ -14,15 +14,17 @@
             <tr>
                 @*<td>&#x2714;</td>*@
                 <td>Nome</td>
+                <td>Sobrenome</td>
                 <td>Dia Cadastrado</td>
             </tr>
         </thead>
         @foreach (var item in Model.Items)
         {
-            <tr>
-                <td>@item.Nome</td>
-                <td>@item.DiaCadastro.Humanize()</td>
-            </tr>
+        <tr>
+            <td>@item.Nome</td>
+            <td>@item.Sobrenome</td>
+            <td>@item.DiaCadastro.Humanize()</td>
+        </tr>
         }
     </table>
     @{
