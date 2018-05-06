@@ -1,14 +1,24 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using AspNetCore.Models;
+using Microsoft.Extensions.Logging;
 
 namespace AspNetCore.Controllers
 {
     public class HomeController : Controller
     {
+        ILogger _logger;
+        // Coonstrutor da HomeController injetando o ILogger
+        public HomeController(ILogger<HomeController> logger)
+        {
+            _logger = logger;
+        }
         public IActionResult Index()
         {
-            return View();
+            // Registrando um log
+            _logger.LogInformation("Home/Index Executing..");
+
+             return View();
         }
 
         public IActionResult About()

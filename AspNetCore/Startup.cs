@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Console;
 using System.Linq;
 
 namespace AspNetCore
@@ -53,6 +54,10 @@ namespace AspNetCore
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddConsole();
+
+            // start logging to the console
+            //var logger = loggerFactory.CreateLogger<ConsoleLogger>();
+            //logger.LogInformation("Executing Configure()");
 
             if (env.IsDevelopment())
             {
