@@ -4,6 +4,7 @@ using AspNetCore.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -30,6 +31,15 @@ namespace AspNetCore
 
             services.AddMvc();
 
+            // Configure Areas manually na minha app. 
+            //services.Configure<RazorViewEngineOptions>(options =>
+            //{
+            //    options.AreaViewLocationFormats.Clear();
+            //    options.AreaViewLocationFormats.Add("/Categories/{2}/Views/{1}/{0}.cshtml");
+            //    options.AreaViewLocationFormats.Add("/Categories/{2}/Views/Shared/{0}.cshtml");
+            //    options.AreaViewLocationFormats.Add("/Views/Shared/{0}.cshtml");
+            //});
+
             // Aqui preciso dizer a classe Startup que tenho configurações manuais a fazer da classe MinhaConfiguracao
             services.Configure<MinhaConfiguracao>(Configuration.GetSection("MinhaConfiguracao"));
 
@@ -53,6 +63,9 @@ namespace AspNetCore
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            /// Aqui o uso dos Libraries em wwwroot, arqivos CSS e JS
+            app.UseFileServer(); // UseFileServer = UseDefaultFiles + UseStaticFiles
+
             loggerFactory.AddConsole();
 
             // start logging to the console
@@ -130,8 +143,7 @@ namespace AspNetCore
             // Aqui escreve na tela através do middleware caso encontre o navegador do FireFox chamando o Método FirefoxRoute
             app.MapWhen(context => context.Request.Headers["User-Agent"].First().Contains("Firefox"), FirefoxRoute);
 
-            /// Aqui o uso dos Libraries em wwwroot, arqivos CSS e JS
-            app.UseStaticFiles();
+            
 
             /// Aqui defino as rotas do sistema
             app.UseMvc(routes =>
