@@ -29,6 +29,7 @@ namespace AspNetCore.Controllers
         public async Task<IActionResult> Index()
         {
             UsuarioViewModel model = new UsuarioViewModel();
+            ModelState.Clear();
 
             // Se eu não quiser chamar a DI no construtor, _IUsuario eu posso fazer dentro do metódo de forma dependente o seguinte, o que não é recomendado:
             //var services = this.HttpContext.RequestServices;
@@ -50,14 +51,15 @@ namespace AspNetCore.Controllers
         //[Route("/Error")]
         // implementar [ValidateAntiForgeryToken]
         // usar [Bind(nameof(NovoUsuariomodel.Nome))] para evitar ataque Mass assignment, também conhecido como Over-posting
-        public async Task<IActionResult> AddItem([Bind(nameof(NovoUsuariomodel.Nome), nameof(NovoUsuariomodel.Sobrenome))] NovoUsuariomodel novoUsuario)
+        public async Task<IActionResult> AddItem([Bind(nameof(UsuarioModel.Nome), nameof(UsuarioModel.Sobrenome))] UsuarioModel novoUsuario)
         {
-            if (await TryUpdateModelAsync(novoUsuario))
+            if (await TryUpdateModelAsync<UsuarioModel>(novoUsuario,"usuario", s => s.Nome, s => s.Sobrenome))
             {
                 await _Iusuario.AddItemAsync(novoUsuario);
-
+      
+                 return Resultado();
                 // Aqui retorno após inserir novo usuário JsonResult onde a string cairá no SPAN id=msg da PartialViewNovoUsuario. 
-                return RedirectToAction("Index");
+                //return RedirectToAction(nameof(Index));
 
                 // Aqui para retornar uma nova view ususario ou pelo nome do método do controller Usuario
                 //return RedirectToRoute("usuario");

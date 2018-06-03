@@ -25,7 +25,7 @@ namespace AspNetCore.Classes
         {
 
               // posso escrever assim a validação para uma ViewModel neste caso a NovoUsuariomodel
-            NovoUsuariomodel usuario = (NovoUsuariomodel)validationContext.ObjectInstance;
+            UsuarioModel usuario = (UsuarioModel)validationContext.ObjectInstance;
             // ou assim
             //var usuario = validationContext.ObjectInstance as NovoUsuariomodel;
 

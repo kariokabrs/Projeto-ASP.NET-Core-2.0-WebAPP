@@ -21,12 +21,10 @@ namespace AspNetCore.DBCoontext
         // DbSet ou entity set que manipula os dados no Banco de Dados, no caso que é SQL Server, na linguagem T-SQL ,ou seja faz os queries diretamente no Banco, usado pelos método da Interface IUsuarioService
         public DbSet<Usuario> Usuarios { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            base.OnModelCreating(builder);
-            //	Customize	the	ASP.NET	Identity	model	and	override	the	d efaults	if	needed.								
-            //	For	example,	you	can	rename	the	ASP.NET	Identity	table	names	and	more.								
-            //	Add	your	customizations	after	calling	base.OnModelCreating(builder);				
-        }
+        // Expression Method diferent from de Block Method que é o normal com {} explícitas. 
+        protected override void OnModelCreating(ModelBuilder builder) => base.OnModelCreating(builder);
+        //	Customize	the	ASP.NET	Identity	model	and	override	the	d efaults	if	needed.								
+        //	For	example,	you	can	rename	the	ASP.NET	Identity	table	names	and	more.								
+        //	Add	your	customizations	after	calling	base.OnModelCreating(builder);				
     }
 }

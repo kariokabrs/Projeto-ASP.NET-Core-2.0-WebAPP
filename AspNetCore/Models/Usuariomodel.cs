@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace AspNetCore.Models
 {
-    public class NovoUsuariomodel
+    public class UsuarioModel
     {
         // Aqui defino meu próprios erros em vez do gerado pelo ValidateModel do Ajax unobtrusive.
         [Required(ErrorMessage = "O nome não pode estar em branco")]

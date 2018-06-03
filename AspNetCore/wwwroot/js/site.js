@@ -24,6 +24,10 @@ $('#Salvar').click(function (e) {
         $("#msg").show();
         $("#msg").html(data);
 
+    }).done(function () {
+        var listaUsuario = $("#listaUsuario");
+        var url = listaUsuario.data("url");
+        listaUsuario.load(url);
     });
 });
 

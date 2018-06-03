@@ -5,7 +5,7 @@
     ViewData["Title"] = "Usuarios Cadastrados";
 }
 
-<div class="panel panel-default	todo-panel">
+<div id="listaUsuario" data-url="@Url.Action("Index")" class="panel panel-default todo-panel">
     <div class="panel-heading">
         @ViewData["Title"]
     </div>
@@ -13,6 +13,7 @@
         <thead>
             <tr>
                 @*<td>&#x2714;</td>*@
+                <td>Id</td>
                 <td>Nome</td>
                 <td>Sobrenome</td>
                 <td>Dia Cadastrado</td>
@@ -21,14 +22,16 @@
         @foreach (var item in Model.Items)
         {
         <tr>
+            <td>@item.Id</td>
             <td>@item.Nome</td>
             <td>@item.Sobrenome</td>
             <td>@item.DiaCadastro.Humanize()</td>
+
         </tr>
         }
     </table>
     @{
-        await Html.RenderPartialAsync("PartialViewNovoUsuario", new NovoUsuariomodel());
+        await Html.RenderPartialAsync("PartialViewNovoUsuario", new UsuarioModel());
     }
 </div>
 

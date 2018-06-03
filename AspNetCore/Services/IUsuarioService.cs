@@ -10,6 +10,6 @@ namespace AspNetCore.Services
     {
         // Criar um método que o UsuarioService deve herdar
         Task<IQueryable<Usuario>> GetUsuariosAsync();
-        Task<bool> AddItemAsync(NovoUsuariomodel newItem);
+        Task<bool> AddItemAsync(UsuarioModel newItem);
     }
 }
