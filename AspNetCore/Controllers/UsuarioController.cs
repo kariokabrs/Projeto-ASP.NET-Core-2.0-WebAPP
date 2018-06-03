@@ -52,12 +52,12 @@ namespace AspNetCore.Controllers
         // usar [Bind(nameof(NovoUsuariomodel.Nome))] para evitar ataque Mass assignment, também conhecido como Over-posting
         public async Task<IActionResult> AddItem([Bind(nameof(NovoUsuariomodel.Nome), nameof(NovoUsuariomodel.Sobrenome))] NovoUsuariomodel novoUsuario)
         {
-            if (ModelState.IsValid)
+            if (await TryUpdateModelAsync(novoUsuario))
             {
                 await _Iusuario.AddItemAsync(novoUsuario);
 
                 // Aqui retorno após inserir novo usuário JsonResult onde a string cairá no SPAN id=msg da PartialViewNovoUsuario. 
-                return new JsonResult("Dados inseridos");
+                return RedirectToAction("Index");
 
                 // Aqui para retornar uma nova view ususario ou pelo nome do método do controller Usuario
                 //return RedirectToRoute("usuario");
@@ -88,6 +88,10 @@ namespace AspNetCore.Controllers
         //    }
 
         //}
+        public JsonResult Resultado()
+        {
+            return new JsonResult("Dados Inseridos");
+        }
 
     }
 

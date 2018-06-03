@@ -28,7 +28,7 @@
         }
     </table>
     @{
-        Html.RenderPartial("PartialViewNovoUsuario", new NovoUsuariomodel());
+        await Html.RenderPartialAsync("PartialViewNovoUsuario", new NovoUsuariomodel());
     }
 </div>
 

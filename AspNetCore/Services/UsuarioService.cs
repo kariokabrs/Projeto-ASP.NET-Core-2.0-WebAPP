@@ -24,17 +24,20 @@ namespace AspNetCore.Services
         }
 
         // Metodo Select do GET do UsuarioController
-        public async Task<IEnumerable<Usuario>> GetUsuariosAsync()
+        public async Task<IQueryable<Usuario>> GetUsuariosAsync()
         {
             // Select da DbSet Usuarios da LibraryContext _context
-            var items = await _context.Usuarios.ToListAsync();
-            return items;
-        } 
+            // Como vai haver filtro eu crio uma colecion generci Iqueryble pois o filtro será feito no database e não no cliente. 
+            // List<Usuario> items = await _context.Usuarios.Take(10).ToListAsync();
+            List<Usuario> items = await _context.Usuarios.ToListAsync();
+
+            return items.AsQueryable();
+        }
 
         // Método Insert do POST do UsuarioController
         public async Task<bool> AddItemAsync(NovoUsuariomodel novoUsuario)
         {
-            var entity = new Usuario
+            Usuario entity = new Usuario
             {
                 Nome = novoUsuario.Nome,
                 Sobrenome = novoUsuario.Sobrenome,
@@ -46,7 +49,7 @@ namespace AspNetCore.Services
 
             _context.Usuarios.Add(entity);
             // Insert da DbSet Usuarios da LibraryContext
-            var saveResult = await _context.SaveChangesAsync();
+            int saveResult = await _context.SaveChangesAsync();
             return saveResult == 1;
         }
 
